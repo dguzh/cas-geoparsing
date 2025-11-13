@@ -1,69 +1,68 @@
-# Geoparsing Demo: Extracting Locations from Text
+# Geoparsing Demo - Docker Environment
 
-This Jupyter notebook demonstrates **geoparsing** - automatically extracting place names from unstructured text and resolving them to geographic coordinates using the [Irchel Geoparser](https://docs.geoparser.app/) library.
+This repository provides a ready-to-use Docker environment for learning about **geoparsing** - the process of automatically extracting place names from text and resolving them to geographic coordinates. The environment includes a Jupyter notebook that demonstrates these techniques using the [Irchel Geoparser](https://docs.geoparser.app/) library.
 
 ## Quick Start
 
 ### Prerequisites
 
-- **Docker Desktop** ([download here](https://www.docker.com/products/docker-desktop))
+Install **Docker Desktop** on your computer:
+
+```
+https://www.docker.com/products/docker-desktop
+```
+
+> **Important:** Ensure you have at least **25GB of free disk space** for the Docker image and gazetteer data.
 
 ### Getting Started
 
-1. **Clone this repository:**
+**Step 1:** Clone this repository
 
 ```bash
 git clone https://github.com/dguzh/cas-geoparsing.git
+```
+
+**Step 2:** Navigate to the directory
+
+```bash
 cd cas-geoparsing
 ```
 
-2. **Start the environment:**
+**Step 3:** Start the Docker environment
 
 ```bash
 docker compose up
 ```
 
-> **Note:** First-time build takes 20-30 minutes (downloads ~14GB of gazetteer data). This only happens once!
+> **Note:** The first build takes 20-30 minutes as it downloads ~14GB of gazetteer data. This only happens once!
 
-3. **Open JupyterLab in your browser:**
+**Step 4:** Open JupyterLab in your browser
 
 ```
 http://localhost:8888
 ```
 
-4. **Open and run the notebook** (`GeoparsingDemo.ipynb`)
+**Step 5:** Open and run the notebook `GeoparsingDemo.ipynb`
 
-That's it! All dependencies and gazetteers are pre-installed.
+### Stopping the Environment
 
-### Stopping
-
-Press `Ctrl+C` or run:
+Press `Ctrl+C` in the terminal, or run:
 
 ```bash
 docker compose down
 ```
 
-## What's Included
+## What's Pre-installed
 
-- Python 3.13 with all required libraries
+- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, seaborn)
 - Irchel Geoparser library (v0.3.0)
-- GeoNames gazetteer (13GB, global coverage)
-- SwissNames3D gazetteer (1.2GB, Swiss locations)
-- spaCy models (`en_core_web_sm` and `en_core_web_trf`)
+- GeoNames gazetteer (13GB, global coverage with 13+ million place names)
+- SwissNames3D gazetteer (1.2GB, high-quality Swiss locations)
+- spaCy NLP models (`en_core_web_sm` and `en_core_web_trf`)
 - JupyterLab environment
 
-## Troubleshooting
-
-**Port 8888 already in use?** Edit `docker-compose.yml` and change `"8888:8888"` to `"8889:8888"`, then access at `http://localhost:8889`
-
-**Build interrupted?** Clean up and rebuild:
-```bash
-docker compose down --volumes
-docker compose up --build
-```
-
-**Out of disk space?** Ensure at least 25GB of free space available.
+Your notebook changes are automatically saved to your local filesystem.
 
 ---
 
-For more details, see the [Irchel Geoparser documentation](https://docs.geoparser.app/).
+For questions about the Irchel Geoparser library, see the [documentation](https://docs.geoparser.app/).
