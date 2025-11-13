@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for Geoparsing Jupyter Environment
-FROM python:3.13-slim as builder
+FROM python:3.13-slim AS builder
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -39,7 +39,7 @@ RUN echo "Downloading SwissNames3D gazetteer (this may take a few minutes)..." &
     echo "SwissNames3D downloaded successfully!"
 
 # Final stage
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 # Install system dependencies for runtime
 RUN apt-get update && apt-get install -y \
@@ -57,8 +57,9 @@ COPY --from=builder /root/.local/share/geoparser /root/.local/share/geoparser
 # Set working directory
 WORKDIR /workspace
 
-# Copy notebook and data
+# Copy notebooks and data
 COPY GeoparsingDemo.ipynb ./
+COPY MappingTextsDemo.ipynb ./
 COPY data/ ./data/
 
 # Expose JupyterLab port
