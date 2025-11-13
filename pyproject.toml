@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "cas-geoparsing"
+version = "1.0.0"
+description = "Geoparsing demonstration notebook for CAS course"
+authors = ["Diego Gomes"]
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+geoparser = "^0.3.0"
+pandas = "^2.0.0"
+numpy = "^1.24.0"
+matplotlib = "^3.7.0"
+seaborn = "^0.12.0"
+jupyter = "^1.0.0"
+jupyterlab = "^4.0.0"
+tqdm = "^4.65.0"
+spacy = "^3.7.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.config]
+virtualenvs.in-project = true
+

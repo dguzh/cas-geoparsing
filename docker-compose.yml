@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  geoparsing-notebook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geoparsing-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mount the current directory so users can save their changes
+      - ./GeoparsingDemo.ipynb:/workspace/GeoparsingDemo.ipynb
+      - ./data:/workspace/data
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped
+
