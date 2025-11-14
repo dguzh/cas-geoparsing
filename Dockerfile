@@ -28,8 +28,9 @@ RUN poetry install --no-root --no-interaction --no-ansi
 # Build JupyterLab assets
 RUN jupyter lab build
 
-# Download spaCy model
-RUN python -m spacy download en_core_web_sm
+# Download spaCy models
+RUN python -m spacy download en_core_web_sm && \
+    python -m spacy download xx_sent_ud_sm
 
 # Download gazetteer (this will take a while but only happens during build)
 # GeoNames: ~13GB, takes 15-30 minutes
