@@ -1,6 +1,6 @@
 # Geoparsing Demo - Docker Environment
 
-This repository provides a ready-to-use Docker environment for learning about **geoparsing** - the process of automatically extracting place names from text and resolving them to geographic coordinates. The environment includes a Jupyter notebook that demonstrates these techniques using the [Irchel Geoparser](https://docs.geoparser.app/) library.
+This repository provides a ready-to-use Docker environment for learning about **geoparsing** - the process of automatically extracting place names from text and resolving them to geographic coordinates. The environment includes Jupyter notebooks that demonstrate these techniques using the [Irchel Geoparser](https://docs.geoparser.app/) library.
 
 ## Quick Start
 
@@ -12,49 +12,42 @@ Install **Docker Desktop** on your computer:
 https://www.docker.com/products/docker-desktop
 ```
 
-> **Important:** Ensure you have at least **25GB of free disk space** for the Docker image and gazetteer data.
+> **Important:** Ensure you have at least **35GB of free disk space** for the Docker image and gazetteer data.
 
 ### Getting Started
 
-**Step 1:** Clone this repository
+**No cloning or setup needed!** Just run this single command:
 
 ```bash
-git clone https://github.com/dguzh/cas-geoparsing.git
+docker compose -f https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml up
 ```
 
-**Step 2:** Navigate to the directory
+> **Note:** First run downloads the pre-built image (~35GB). This takes 10-20 minutes depending on your internet connection.
 
-```bash
-cd cas-geoparsing
-```
-
-**Step 3:** Start the Docker environment
-
-```bash
-docker compose up
-```
-
-> **Note:** The first build takes 20-30 minutes as it downloads ~14GB of gazetteer data. This only happens once!
-
-**Step 4:** Open JupyterLab in your browser
+Then open JupyterLab in your browser:
 
 ```
 http://localhost:8888
 ```
 
-**Step 5:** Open and run the notebook `GeoparsingDemo.ipynb`
+Your work will be automatically saved in a local `notebooks/` folder.
 
-### Stopping the Environment
+## Notebooks Included
+
+1. **GeoparsingDemo.ipynb** - Learn how to extract locations from documents and evaluate geoparsing accuracy
+2. **MappingTextsDemo.ipynb** - Visualize geographic references in literature with interactive maps
+
+## Stopping the Environment
 
 Press `Ctrl+C` in the terminal, or run:
 
 ```bash
-docker compose down
+docker compose -f https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml down
 ```
 
 ## What's Pre-installed
 
-- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, seaborn)
+- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, seaborn, plotly)
 - Irchel Geoparser library (v0.3.0)
 - GeoNames gazetteer (13GB, global coverage with 13+ million place names)
 - SwissNames3D gazetteer (1.2GB, high-quality Swiss locations)

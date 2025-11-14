@@ -5,6 +5,8 @@ FROM python:3.13-slim AS builder
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
@@ -22,6 +24,9 @@ RUN poetry config virtualenvs.create false
 
 # Install Python dependencies
 RUN poetry install --no-root --no-interaction --no-ansi
+
+# Build JupyterLab assets
+RUN jupyter lab build
 
 # Download spaCy models
 RUN python -m spacy download en_core_web_sm && \
@@ -65,7 +70,7 @@ COPY data/ ./data/
 # Expose JupyterLab port
 EXPOSE 8888
 
-# Run JupyterLab without authentication token for easy access
+# Run JupyterLab without authentication for easy access
 # Users can access at http://localhost:8888
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''", "--ServerApp.disable_check_xsrf=True"]
 
