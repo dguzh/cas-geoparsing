@@ -6,30 +6,38 @@ This repository provides a ready-to-use Docker environment for learning about **
 
 ### Prerequisites
 
-Install **Docker Desktop** on your computer:
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) on your computer.
 
+> **Important:** Ensure you have at least **32GB of free disk space** for the Docker image and gazetteer data.
+
+### Step 1: Download the Configuration File
+
+**On Windows (PowerShell):**
+
+```powershell
+curl.exe -O https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml
 ```
-https://www.docker.com/products/docker-desktop
-```
 
-> **Important:** Ensure you have at least **30GB of free disk space** for the Docker image and gazetteer data.
-
-### Step 1: Download the Environment
-
-Run this command to download the pre-built environment:
+**On macOS/Linux:**
 
 ```bash
-docker compose -f https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml pull
+curl -O https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml
+```
+
+### Step 2: Download the Environment
+
+```bash
+docker compose -f docker-compose.cloud.yml pull
 ```
 
 > **Note:** This downloads the pre-built image (~10GB). Takes 10-20 minutes depending on your internet connection.
 
 You'll see a "Downloaded" message when complete.
 
-### Step 2: Start JupyterLab
+### Step 3: Start JupyterLab
 
 ```bash
-docker compose -f https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compose.cloud.yml up
+docker compose -f docker-compose.cloud.yml up
 ```
 
 Then open JupyterLab in your browser:
@@ -45,7 +53,7 @@ http://localhost:8888
 
 ## Stopping the Environment
 
-Press `Ctrl+C` in the terminal **twice**:
+In the terminal where JupyterLab is running, press `Ctrl+C` **twice**:
 - First time: Stops Jupyter Server
 - Second time: Stops Docker container
 

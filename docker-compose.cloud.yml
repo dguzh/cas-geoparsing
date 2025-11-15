@@ -4,9 +4,6 @@ services:
     container_name: geoparsing-notebook
     ports:
       - "8888:8888"
-    volumes:
-      # Save your work locally
-      - ./notebooks:/workspace
     environment:
       - JUPYTER_ENABLE_LAB=yes
     restart: unless-stopped

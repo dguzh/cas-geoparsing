@@ -60,10 +60,10 @@ COPY --from=builder /root/.local/share/geoparser /root/.local/share/geoparser
 # Set working directory
 WORKDIR /workspace
 
-# Copy notebooks and data
-COPY GeoparsingDemo.ipynb ./
-COPY MappingTextsDemo.ipynb ./
-COPY data/ ./data/
+# Copy notebooks and data from notebooks directory
+COPY notebooks/GeoparsingDemo.ipynb ./
+COPY notebooks/MappingTextsDemo.ipynb ./
+COPY notebooks/data/ ./data/
 
 # Expose JupyterLab port
 EXPOSE 8888
