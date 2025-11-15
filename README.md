@@ -30,9 +30,7 @@ curl -O https://raw.githubusercontent.com/dguzh/cas-geoparsing/main/docker-compo
 docker compose -f docker-compose.cloud.yml pull
 ```
 
-> **Note:** This downloads the pre-built image (~10GB). Takes 10-20 minutes depending on your internet connection.
-
-You'll see a "Downloaded" message when complete.
+> **Note:** This downloads the pre-built image (compressed to ~10GB). Takes 5-10 minutes depending on your internet connection.
 
 ### Step 3: Start JupyterLab
 
@@ -55,13 +53,11 @@ In the terminal where JupyterLab is running, press `Ctrl+C` **twice**:
 
 ## What's Pre-installed
 
-- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, plotly)
+- Python 3.13 with computing and plotting libraries (pandas, numpy, matplotlib, plotly)
 - Irchel Geoparser library (v0.3.0)
 - GeoNames gazetteer (13GB, global coverage with 13+ million place names)
 - spaCy NLP models (`en_core_web_sm`, `xx_sent_ud_sm`)
 - JupyterLab environment
-
-Your notebook changes are automatically saved to your local filesystem.
 
 ---
 
