@@ -8,7 +8,7 @@ This repository provides a ready-to-use Docker environment for learning about **
 
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop) on your computer.
 
-> **Important:** Ensure you have at least **32GB of free disk space** for the Docker image and gazetteer data.
+> **Important:** Ensure you have at least **35GB of free disk space** for Docker Desktop, the Docker image and the GeoNames data.
 
 ### Step 1: Download the Configuration File
 
@@ -40,11 +40,7 @@ You'll see a "Downloaded" message when complete.
 docker compose -f docker-compose.cloud.yml up
 ```
 
-Then open JupyterLab in your browser:
-
-```
-http://localhost:8888
-```
+Then open JupyterLab in your browser: [localhost:8888](http://localhost:8888)
 
 ## Notebooks Included
 
@@ -59,7 +55,7 @@ In the terminal where JupyterLab is running, press `Ctrl+C` **twice**:
 
 ## What's Pre-installed
 
-- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, seaborn, plotly)
+- Python 3.13 with scientific computing libraries (pandas, numpy, matplotlib, plotly)
 - Irchel Geoparser library (v0.3.0)
 - GeoNames gazetteer (13GB, global coverage with 13+ million place names)
 - spaCy NLP models (`en_core_web_sm`, `xx_sent_ud_sm`)
