@@ -1,26 +1,27 @@
-[tool.poetry]
+[project]
 name = "cas-geoparsing"
-version = "1.0.0"
-description = "Geoparsing demonstration notebook for CAS course"
-authors = ["Diego Gomes"]
+version = "1.1.0"
+description = "Geoparsing demonstration notebooks for the CAS workshop"
 readme = "README.md"
-packages = []
+authors = [
+    {name = "Diego Gomes"}
+]
+requires-python = ">=3.10,<3.15"
+dependencies = [
+    "geoparser (==0.6.2)",
+    "pandas (>=2.0.0,<3.0.0)",
+    "numpy (>=1.24.0,<3.0.0)",
+    "matplotlib (>=3.7.0,<4.0.0)",
+    "jupyter (>=1.0.0,<2.0.0)",
+    "jupyterlab (>=4.0.0,<5.0.0)",
+    "spacy (>=3.8.7,<4.0.0,!=3.8.14)",
+    "plotly (>=5.18.0,<6.0.0)",
+    "requests (>=2.31.0,<3.0.0)",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.14"
-geoparser = "^0.3.0"
-pandas = "^2.0.0"
-numpy = "^1.24.0"
-matplotlib = "^3.7.0"
-jupyter = "^1.0.0"
-jupyterlab = "^4.0.0"
-spacy = "^3.7.0"
-plotly = "^5.18.0"
-requests = "^2.31.0"
-
-[tool.poetry.group.dev.dependencies]
+[tool.poetry]
+package-mode = false
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
-

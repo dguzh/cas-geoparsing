@@ -1,4 +1,5 @@
-# Multi-stage Dockerfile for Geoparsing Jupyter Environment
+# Multi-stage Dockerfile for the geoparsing Jupyter environment.
+# The image is built against Irchel Geoparser 0.6.2.
 FROM python:3.13-slim AS builder
 
 # Install system dependencies
@@ -28,15 +29,27 @@ RUN poetry install --no-root --no-interaction --no-ansi
 # Build JupyterLab assets
 RUN jupyter lab build
 
-# Download spaCy models
+# spaCy models used by the notebooks.
+# en_core_web_sm: contemporary English captions in GeoparsingDemo.
+# en_core_web_trf: nineteenth-century prose in MappingTextsDemo.
+# xx_sent_ud_sm: sentence splitting inside the resolver.
 RUN python -m spacy download en_core_web_sm && \
+    python -m spacy download en_core_web_trf && \
     python -m spacy download xx_sent_ud_sm
 
-# Download gazetteer (this will take a while but only happens during build)
-# GeoNames: ~13GB, takes 15-30 minutes
-RUN echo "Downloading GeoNames gazetteer (this may take 15-30 minutes)..." && \
-    python -m geoparser download geonames && \
-    echo "GeoNames downloaded successfully!"
+# Cache the resolver model so the first notebook run does not download it.
+ENV HF_HOME=/opt/cache/huggingface \
+    HUGGINGFACE_HUB_CACHE=/opt/cache/huggingface/hub \
+    SENTENCE_TRANSFORMERS_HOME=/opt/cache/sentence-transformers
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('dguzh/geo-all-MiniLM-L6-v2')"
+
+# Install the GeoNames gazetteer.
+# The build needs about 31 GB free while the artifact is compiled.
+# The installed file is about 10 GB, with 13 million features.
+# `download` was renamed to `install` in Geoparser 0.4.0; the old command now exits.
+RUN echo "Installing GeoNames gazetteer (this may take 10-20 minutes)..." && \
+    python -m geoparser install geonames && \
+    echo "GeoNames installed successfully!"
 
 # Final stage
 FROM python:3.13-slim
@@ -53,8 +66,14 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 # Copy JupyterLab built assets from builder
 COPY --from=builder /usr/local/share/jupyter /usr/local/share/jupyter
 
-# Copy gazetteer database from builder
-# This is stored in the user's app data directory
+# Resolver model cache
+ENV HF_HOME=/opt/cache/huggingface \
+    HUGGINGFACE_HUB_CACHE=/opt/cache/huggingface/hub \
+    SENTENCE_TRANSFORMERS_HOME=/opt/cache/sentence-transformers
+COPY --from=builder /opt/cache /opt/cache
+
+# Gazetteer artifacts live in the application data directory.
+# Geoparser 0.5+ stores each gazetteer as one SQLite file under gazetteers/.
 COPY --from=builder /root/.local/share/geoparser /root/.local/share/geoparser
 
 # Set working directory
@@ -71,4 +90,3 @@ EXPOSE 8888
 # Run JupyterLab without authentication for easy access
 # Users can access at http://localhost:8888
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--IdentityProvider.token=''", "--ServerApp.password=''", "--ServerApp.disable_check_xsrf=True"]
-
